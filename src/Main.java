@@ -1,32 +1,95 @@
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
+        SolicitudAPI solicitud = new SolicitudAPI();
         Scanner lectura = new Scanner(System.in);
-        System.out.println("Escriba el codigo 1: ");
-        var codigo1 = lectura.nextLine();
 
-        System.out.println("Escriba el codigo 2: ");
-        var codigo2 = lectura.nextLine();
+        int cantidadConvertir;
+        boolean bucle = true;
 
-        System.out.println("Escriba la cantidad: ");
-        var cantidad = lectura.nextLine();
+        System.out.println("""
+                **************************\
+                
+                |Bienvedi@ al Conversor de Moneda|\
+                
+                1) Dólar ==>> Peso Argentino\
 
-        String direccion = "https://v6.exchangerate-api.com/v6/d526fc1dbff44099e95590b8/pair/"+codigo1+"/"+codigo2+"/"+cantidad;
+                2) Peso Argentino ==>> Dólar\
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(direccion))
-                .build();
-        HttpResponse<String> response = client
-                .send(request, HttpResponse.BodyHandlers.ofString());
+                3) Dólar ==>> Real brasileño\
 
-        String json = response.body();
-        System.out.println(json);
+                4) Real brasileño ==>> Dólar\
+
+                5) Dólar ==>> Peso colombiano\
+
+                6) Peso colombiano ==>> Dólar\
+
+                7) Dólar ==>> Quetzal guatemalteco\
+
+                8) Quetzal guatemalteco ==>> Dólar\
+
+                9) Salir""");
+
+        while (bucle){
+            System.out.println("Elija una opción válida: ");
+            var opcion = lectura.nextInt();
+            System.out.println("**************************");
+
+            switch (opcion) {
+                case 1:
+                    System.out.println("Ingrese el valor que desea convertir:");
+                    cantidadConvertir = lectura.nextInt();
+                    solicitud.Convertir("USD","ARS",cantidadConvertir);
+                    break;
+
+                case 2:
+                    System.out.println("Ingrese el valor que desea convertir:");
+                    cantidadConvertir = lectura.nextInt();
+                    solicitud.Convertir("ARS","USD",cantidadConvertir);
+                    break;
+
+                case 3:
+                    System.out.println("Ingrese el valor que desea convertir:");
+                    cantidadConvertir = lectura.nextInt();
+                    solicitud.Convertir("USD","BRL",cantidadConvertir);
+                    break;
+
+                case 4:
+                    System.out.println("Ingrese el valor que desea convertir:");
+                    cantidadConvertir = lectura.nextInt();
+                    solicitud.Convertir("BRL","USD",cantidadConvertir);
+                    break;
+
+                case 5:
+                    System.out.println("Ingrese el valor que desea convertir:");
+                    cantidadConvertir = lectura.nextInt();
+                    solicitud.Convertir("USD","COP",cantidadConvertir);
+                    break;
+
+                case 6:
+                    System.out.println("Ingrese el valor que desea convertir:");
+                    cantidadConvertir = lectura.nextInt();
+                    solicitud.Convertir("COP","USD",cantidadConvertir);
+                    break;
+
+                case 7:
+                    System.out.println("Ingrese el valor que desea convertir:");
+                    cantidadConvertir = lectura.nextInt();
+                    solicitud.Convertir("USD","GTQ",cantidadConvertir);
+                    break;
+
+                case 8:
+                    System.out.println("Ingrese el valor que desea convertir:");
+                    cantidadConvertir = lectura.nextInt();
+                    solicitud.Convertir("GTQ","USD",cantidadConvertir);
+                    break;
+
+                case 9:
+                    bucle = false;
+                    break;
+            }
+        }
     }
 }
