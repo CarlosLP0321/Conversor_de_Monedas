@@ -5,11 +5,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class SolicitudAPI {
-    public void Convertir(String monedaBase, String monedaObjetivo, int cantidadConvertir) throws IOException, InterruptedException {
-        String direccion = "https://v6.exchangerate-api.com/v6/d526fc1dbff44099e95590b8/pair/"+
-                monedaBase+"/"+
-                monedaObjetivo+"/"+
-                cantidadConvertir;
+    public String Convertir(String monedaBase) throws IOException, InterruptedException {
+        String direccion = "https://v6.exchangerate-api.com/v6/d526fc1dbff44099e95590b8/latest/" + monedaBase;
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -18,7 +15,6 @@ public class SolicitudAPI {
         HttpResponse<String> response = client
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
-        String json = response.body();
-        System.out.println(json);
+        return response.body();
     }
 }
